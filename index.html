@@ -9,13 +9,13 @@
     <div id="root"></div>
     <script type="text/babel">
     const rootElement = document.getElementById('root');
-    const content = 'Hello World';
-    const myClassName = 'container';
-    const props = {
-      className: 'container',
-      children: 'Hello World',
-    }
-    const element = <div {...props} className="my-class" />;
+    const Message = (props) => <div>{props.msg}</div>
+    const element = (
+      <div className="container">
+        <Message msg='Hello World' />
+        <Message msg='Goodbye World' />
+      </div>
+    )
     ReactDOM.render(element, rootElement);
     console.log(element);
     </script>
