@@ -30,6 +30,9 @@
         this.setState({lapse: 0, running: false});
         clearInterval(this.timer);
       }
+      componentWillUnmount() {
+        clearInterval(this.timer);
+      }
       render() {
         const {lapse, running} = this.state;
         const buttonStyle = {
