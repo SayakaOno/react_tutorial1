@@ -21,7 +21,7 @@
             const startTime = Date.now() - this.state.lapse;
             this.timer = setInterval(() => {
               this.setState({lapse: Date.now() - startTime})
-            })
+            });
           }
           return {running: !state.running}
         })
@@ -32,6 +32,19 @@
       }
       componentWillUnmount() {
         clearInterval(this.timer);
+      }
+      calculateTime(time) {
+        let min = Math.floor(time / (60 * 1000));
+        let sec = Math.floor((time % (60* 1000)) / 1000);
+        let ms = Math.floor(((time % (60* 1000)) % 1000) / 10);
+        let array = [adjust(min), adjust(sec), adjust(ms)];
+        function adjust(number) {
+          if(number.toString().length == 1){
+            number = '0' + number;
+          }
+          return number
+        }
+        return array[0] + ':' + array[1] + ':' + array[2];
       }
       render() {
         const {lapse, running} = this.state;
@@ -48,7 +61,7 @@
             <label
               style={{fontSize: '5em', display: 'block'}}
             >
-              {lapse}ms
+              {this.calculateTime(lapse)}
             </label>
             <button onClick={this.handleRunClick} style={buttonStyle}>{running ? 'Stop' : 'Start'}</button>
             <button onClick={this.handleClearClick} style={buttonStyle}>Clear</button>
