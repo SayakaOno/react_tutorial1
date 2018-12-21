@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/react@16.0.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0"></script>
+    <style>   
+      input, textarea {
+        margin-bottom: 10px;
+      } 
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+    class Form extends React.Component {
+      state = {
+        firstName: '',
+        lastName: '',
+        favouriteColor: '?',
+        gender: '',
+        phrase: '',
+        friendly: false,
+      }
+
+      handleChange = (event) => {
+        event.target.type === 'checkbox' 
+        ? this.setState(prevState => {
+            return {friendly: !prevState.friendly}
+          })
+        : this.setState({[event.target.name]: event.target.value});
+      }
+
+      render() {
+        let friendlyText = this.state.friendly ? `You are friendly` : '';
+
+
+        return (
+          <div>
+            <p>Your name is {this.state.firstName} {this.state.lastName}</p>
+            <p>Your are a {this.state.gender}</p>
+            <p>You are saying: {this.state.phrase}</p>
+            <p>{friendlyText}</p>
+            <p>Your favourite color is {this.state.favouriteColor}</p>
+            <form>
+              <input
+                name="firstName"
+                value={this.state.firstName}
+                type="text"
+                onChange={this.handleChange}
+                placeholder="first name"
+              /><br />
+
+              <input
+                name="lastName"
+                value={this.state.lastName}
+                type="text"
+                onChange={this.handleChange}
+                placeholder="last name"
+              /><br />
+
+              <input
+                name="gender"
+                value="male"
+                type="radio"
+                checked={this.state.gender === 'male'}
+                onChange={this.handleChange}
+              />male
+
+              <input
+                name="gender"
+                value="female"
+                type="radio"
+                checked={this.state.gender === 'female'}
+                onChange={this.handleChange}
+              />female<br />
+
+              <textarea
+                name="phrase"
+                value={this.state.phrase}
+                type="text"
+                onChange={this.handleChange}
+                placeholder="say something"
+              /><br />
+
+              <input
+                name="friendly"
+                checked={this.state.friendly}
+                type="checkbox"
+                onChange={this.handleChange}
+              />friendly<br />
+
+              <select
+                name="favouriteColor"
+                value={this.state.favouriteColor}
+                onChange={this.handleChange}
+              >
+                <option value="">select</option>
+                <option value="blue">blue</option>
+                <option value="yellow">yellow</option>
+                <option value="red">red</option>
+                <option value="green">green</option>
+                <option value="orange">orange</option>
+              </select>
+            </form>
+
+            
+          </div>
+
+
+          
+        );
+      }
+    }
+
+    ReactDOM.render(
+      <Form />,
+      document.getElementById('root'),
+    )
+    </script>
+  </body>
+</html>
